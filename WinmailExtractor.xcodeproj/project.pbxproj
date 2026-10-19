@@ -15,6 +15,7 @@
 		100000000000000000000006 /* AttachmentWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000006 /* AttachmentWriter.swift */; };
 		100000000000000000000007 /* TNEFParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000007 /* TNEFParserTests.swift */; };
 		100000000000000000000008 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 20000000000000000000000C /* Assets.xcassets */; };
+		9D6CB59A3083981200A387F7 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 9D6CB5993083981200A387F7 /* Localizable.xcstrings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,17 +41,31 @@
 		20000000000000000000000A /* WinmailExtractor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WinmailExtractor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		20000000000000000000000B /* WinmailExtractorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WinmailExtractorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		20000000000000000000000C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		9D6CB5993083981200A387F7 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		600000000000000000000001 /* Frameworks */ = {isa = PBXFrameworksBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
-		600000000000000000000002 /* Frameworks */ = {isa = PBXFrameworksBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
+		600000000000000000000001 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		600000000000000000000002 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		700000000000000000000001 = {
 			isa = PBXGroup;
 			children = (
+				9D6CB5993083981200A387F7 /* Localizable.xcstrings */,
 				700000000000000000000002 /* WinmailExtractor */,
 				700000000000000000000004 /* WinmailExtractorTests */,
 				700000000000000000000005 /* Products */,
@@ -83,7 +98,9 @@
 		};
 		700000000000000000000004 /* WinmailExtractorTests */ = {
 			isa = PBXGroup;
-			children = (200000000000000000000007 /* TNEFParserTests.swift */,);
+			children = (
+				200000000000000000000007 /* TNEFParserTests.swift */,
+			);
 			path = WinmailExtractorTests;
 			sourceTree = "<group>";
 		};
@@ -107,8 +124,10 @@
 				600000000000000000000001 /* Frameworks */,
 				600000000000000000000003 /* Resources */,
 			);
-			buildRules = ();
-			dependencies = ();
+			buildRules = (
+			);
+			dependencies = (
+			);
 			name = WinmailExtractor;
 			productName = WinmailExtractor;
 			productReference = 20000000000000000000000A /* WinmailExtractor.app */;
@@ -121,8 +140,11 @@
 				900000000000000000000002 /* Sources */,
 				600000000000000000000002 /* Frameworks */,
 			);
-			buildRules = ();
-			dependencies = (A00000000000000000000001 /* PBXTargetDependency */,);
+			buildRules = (
+			);
+			dependencies = (
+				A00000000000000000000001 /* PBXTargetDependency */,
+			);
 			name = WinmailExtractorTests;
 			productName = WinmailExtractorTests;
 			productReference = 20000000000000000000000B /* WinmailExtractorTests.xctest */;
@@ -138,15 +160,25 @@
 				LastSwiftUpdateCheck = 2660;
 				LastUpgradeCheck = 2660;
 				TargetAttributes = {
-					500000000000000000000001 = {CreatedOnToolsVersion = 26.6;};
-					500000000000000000000002 = {CreatedOnToolsVersion = 26.6; TestTargetID = 500000000000000000000001;};
+					500000000000000000000001 = {
+						CreatedOnToolsVersion = 26.6;
+					};
+					500000000000000000000002 = {
+						CreatedOnToolsVersion = 26.6;
+						TestTargetID = 500000000000000000000001;
+					};
 				};
 			};
 			buildConfigurationList = 800000000000000000000001 /* Build configuration list for PBXProject "WinmailExtractor" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = ja;
 			hasScannedForEncodings = 0;
-			knownRegions = (ja, en, Base,);
+			knownRegions = (
+				ja,
+				en,
+				Base,
+				de,
+			);
 			mainGroup = 700000000000000000000001;
 			productRefGroup = 700000000000000000000005 /* Products */;
 			projectDirPath = "";
@@ -163,6 +195,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9D6CB59A3083981200A387F7 /* Localizable.xcstrings in Resources */,
 				100000000000000000000008 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -186,13 +219,19 @@
 		900000000000000000000002 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
-			files = (100000000000000000000007 /* TNEFParserTests.swift in Sources */,);
+			files = (
+				100000000000000000000007 /* TNEFParserTests.swift in Sources */,
+			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		A00000000000000000000001 /* PBXTargetDependency */ = {isa = PBXTargetDependency; target = 500000000000000000000001 /* WinmailExtractor */; targetProxy = 300000000000000000000001 /* PBXContainerItemProxy */; };
+		A00000000000000000000001 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 500000000000000000000001 /* WinmailExtractor */;
+			targetProxy = 300000000000000000000001 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
@@ -211,8 +250,9 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-		};
+			};
 			name = Debug;
 		};
 		B00000000000000000000002 /* Release */ = {
@@ -227,6 +267,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				SDKROOT = macosx;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 			};
 			name = Release;
 		};
@@ -237,12 +278,15 @@
 				CODE_SIGN_ENTITLEMENTS = WinmailExtractor/WinmailExtractor.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = WinmailExtractor/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MARKETING_VERSION = 1.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.nishimori.WinmailExtractor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -257,12 +301,15 @@
 				CODE_SIGN_ENTITLEMENTS = WinmailExtractor/WinmailExtractor.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = WinmailExtractor/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MARKETING_VERSION = 1.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.nishimori.WinmailExtractor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -281,7 +328,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WinmailExtractor.app/Contents/MacOS/WinmailExtractor";
-		};
+			};
 			name = Debug;
 		};
 		B00000000000000000000006 /* Release */ = {
@@ -301,9 +348,33 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		800000000000000000000001 /* Build configuration list for PBXProject "WinmailExtractor" */ = {isa = XCConfigurationList; buildConfigurations = (B00000000000000000000001 /* Debug */, B00000000000000000000002 /* Release */,); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
-		800000000000000000000002 /* Build configuration list for PBXNativeTarget "WinmailExtractor" */ = {isa = XCConfigurationList; buildConfigurations = (B00000000000000000000003 /* Debug */, B00000000000000000000004 /* Release */,); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
-		800000000000000000000003 /* Build configuration list for PBXNativeTarget "WinmailExtractorTests" */ = {isa = XCConfigurationList; buildConfigurations = (B00000000000000000000005 /* Debug */, B00000000000000000000006 /* Release */,); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
+		800000000000000000000001 /* Build configuration list for PBXProject "WinmailExtractor" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B00000000000000000000001 /* Debug */,
+				B00000000000000000000002 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		800000000000000000000002 /* Build configuration list for PBXNativeTarget "WinmailExtractor" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B00000000000000000000003 /* Debug */,
+				B00000000000000000000004 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		800000000000000000000003 /* Build configuration list for PBXNativeTarget "WinmailExtractorTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B00000000000000000000005 /* Debug */,
+				B00000000000000000000006 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
 	};
 	rootObject = 400000000000000000000001 /* Project object */;

@@ -38,9 +38,9 @@ final class AppModel: ObservableObject {
 
     func chooseFiles() {
         let panel = NSOpenPanel()
-        panel.title = "winmail.datを選択"
-        panel.message = "展開するMicrosoft TNEFファイルを選んでください。"
-        panel.prompt = "選択"
+        panel.title = String(localized: "panel_title")
+        panel.message = String(localized: "panel_msg")
+        panel.prompt = String(localized: "panel_promt")
         panel.allowedContentTypes = [UTType(importedAs: "com.microsoft.tnef", conformingTo: .data)]
         panel.allowsMultipleSelection = true
         panel.canChooseDirectories = false
@@ -82,8 +82,18 @@ final class AppModel: ObservableObject {
                 let archive = try loadArchive(from: sourceURL)
                 let writtenURLs = try write(archive, to: destination)
                 result.writtenFiles.append(contentsOf: writtenURLs)
+                
+                var displayName = sourceURL.lastPathComponent
+                if let firstFile = writtenURLs.first {
+                    if writtenURLs.count > 1 {
+                        displayName = "\(firstFile.lastPathComponent) (+ \(writtenURLs.count - 1))"
+                    } else {
+                        displayName = firstFile.lastPathComponent
+                    }
+                }
+                
                 addRecord(.init(
-                    sourceName: sourceURL.lastPathComponent,
+                    sourceName: displayName,
                     outcome: .success(count: writtenURLs.count, destination: destination)
                 ))
             } catch {
@@ -117,8 +127,18 @@ final class AppModel: ObservableObject {
             }
 
             let writtenURLs = try write(archive, to: destination)
+ 
+            var displayName = sourceURL.lastPathComponent
+            if let firstFile = writtenURLs.first {
+                if writtenURLs.count > 1 {
+                    displayName = "\(firstFile.lastPathComponent) (+ \(writtenURLs.count - 1))"
+                } else {
+                    displayName = firstFile.lastPathComponent
+                }
+            }
+            
             addRecord(.init(
-                sourceName: sourceURL.lastPathComponent,
+                sourceName: displayName,
                 outcome: .success(count: writtenURLs.count, destination: destination)
             ))
             showSuccess(writtenURLs, destination: destination, warnings: archive.warnings)
@@ -128,6 +148,7 @@ final class AppModel: ObservableObject {
             showError(sourceURL: sourceURL, message: message)
         }
     }
+
 
     private func loadArchive(from sourceURL: URL) throws -> TNEFArchive {
         let didAccess = sourceURL.startAccessingSecurityScopedResource()
@@ -160,17 +181,20 @@ final class AppModel: ObservableObject {
 
     private func chooseDestination(for sourceURL: URL, attachmentCount: Int) -> URL? {
         let panel = NSOpenPanel()
-        panel.title = "保存先を選択"
-        panel.message = "\(attachmentCount)個の添付ファイルを保存するフォルダを選んでください。"
-        panel.prompt = "ここに展開"
+        panel.title = String(localized: "panel_title_choose_destination")
+        panel.message = String(localized: "panel_message_choose_folder \(attachmentCount)")
+        panel.prompt = String(localized: "panel_prompt_extract_here")
         panel.canChooseFiles = false
         panel.canChooseDirectories = true
         panel.canCreateDirectories = true
         panel.allowsMultipleSelection = false
         panel.directoryURL = sourceURL.deletingLastPathComponent()
+        panel.level = .modalPanel
+        panel.makeKeyAndOrderFront(nil)
 
         return panel.runModal() == .OK ? panel.url : nil
     }
+
 
     private func addRecord(_ record: ExtractionRecord) {
         records.insert(record, at: 0)
@@ -182,13 +206,13 @@ final class AppModel: ObservableObject {
     private func showSuccess(_ files: [URL], destination: URL, warnings: [String]) {
         let alert = NSAlert()
         alert.alertStyle = .informational
-        alert.messageText = "展開が完了しました"
-        alert.informativeText = "\(files.count)個の添付ファイルを「\(destination.lastPathComponent)」に保存しました。"
+        alert.messageText = String(localized: "alert_success_title")
+        alert.informativeText = String(localized: "alert_success_body \(files.count) \(destination.lastPathComponent)")
         if !warnings.isEmpty {
-            alert.informativeText += "\n\n注意: \(warnings.joined(separator: "\n"))"
+            alert.informativeText += "\n\n" + String(localized: "alert_warning_prefix") + " \(warnings.joined(separator: "\n"))"
         }
-        alert.addButton(withTitle: "Finderで表示")
-        alert.addButton(withTitle: "閉じる")
+        alert.addButton(withTitle: String(localized: "btn_show_in_finder"))
+        alert.addButton(withTitle: String(localized: "btn_close"))
 
         if alert.runModal() == .alertFirstButtonReturn {
             NSWorkspace.shared.activateFileViewerSelecting(files)
@@ -198,10 +222,11 @@ final class AppModel: ObservableObject {
     private func showError(sourceURL: URL, message: String) {
         let alert = NSAlert()
         alert.alertStyle = .critical
-        alert.messageText = "\(sourceURL.lastPathComponent)を展開できませんでした"
+        alert.messageText = String(localized: "alert_error_title_failed_filename \(sourceURL.lastPathComponent)")
         alert.informativeText = message
         alert.runModal()
     }
+
 }
 
 enum ExtractionError: LocalizedError {
@@ -211,9 +236,10 @@ enum ExtractionError: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .noAttachments:
-            return "TNEFデータ内に展開可能な添付ファイルが見つかりませんでした。"
+            return String(localized: "error_description_no_attachments")
         case .downloadsDirectoryUnavailable:
-            return "Downloadsフォルダを取得できませんでした。"
+            return String(localized: "error_description_downloads_unavailable")
         }
     }
 }
+

@@ -68,28 +68,26 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         sender: NSApplication,
         requiresReply: Bool
     ) {
-        let wasHeadless = mainWindow == nil
+   
         let result = AppModel.shared.extractToDownloads(urls)
 
         if requiresReply {
             sender.reply(toOpenOrPrint: result.failures.isEmpty ? .success : .failure)
         }
-        if !result.writtenFiles.isEmpty {
-            showAutomaticExtractionSuccess(result.writtenFiles)
-        }
+        
         if !result.failures.isEmpty {
             showAutomaticExtractionErrors(result.failures)
         }
 
-        if wasHeadless {
-            DispatchQueue.main.async {
-                sender.terminate(nil)
-            }
+        DispatchQueue.main.async {
+            NSApp.activate(ignoringOtherApps: true)
         }
     }
 
     func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
-        showMainWindow()
+        if !flag {
+            NSApp.windows.first?.makeKeyAndOrderFront(nil)
+        }
         return true
     }
 
@@ -108,19 +106,21 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
         let rootView = ContentView()
             .environmentObject(AppModel.shared)
+            .frame(width: 680, height: 620)
+
         let hostingController = NSHostingController(rootView: rootView)
+        
         let window = NSWindow(
-            contentRect: NSRect(x: 0, y: 0, width: 680, height: 510),
-            styleMask: [.titled, .closable, .miniaturizable, .resizable, .fullSizeContentView],
-            backing: .buffered,
-            defer: false
+            contentViewController: hostingController
         )
-        window.contentViewController = hostingController
+        
+        window.styleMask = [.titled, .closable, .miniaturizable, .resizable, .fullSizeContentView]
         window.title = "Winmail Extractor"
         window.titleVisibility = .hidden
         window.titlebarAppearsTransparent = true
         window.isReleasedWhenClosed = false
-        window.setFrameAutosaveName("WinmailExtractorMainWindow")
+        
+        window.setFrameAutosaveName("WinmailExtractorMainWindow_V2")
         window.center()
 
         mainWindow = window
@@ -128,40 +128,32 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         NSApp.activate(ignoringOtherApps: true)
     }
 
+
+
     private func showAutomaticExtractionErrors(_ failures: [AutomaticExtractionFailure]) {
         NSApp.setActivationPolicy(.regular)
         NSApp.activate(ignoringOtherApps: true)
 
         let alert = NSAlert()
         alert.alertStyle = .critical
-        alert.messageText = "winmail.datを展開できませんでした"
+        alert.messageText = String(localized: "alert_error_title_failed_extraction")
         alert.informativeText = failures
             .map { "\($0.sourceName): \($0.message)" }
             .joined(separator: "\n")
         alert.runModal()
     }
 
-    private func showAutomaticExtractionSuccess(_ files: [URL]) {
-        NSApp.setActivationPolicy(.regular)
-        NSApp.activate(ignoringOtherApps: true)
-
-        let alert = NSAlert()
-        alert.alertStyle = .informational
-        alert.messageText = Self.automaticExtractionMessage(for: files)
-        alert.informativeText = "保存先: ~/Downloads"
-        alert.addButton(withTitle: "OK")
-        alert.runModal()
-    }
 
     static func automaticExtractionMessage(for files: [URL]) -> String {
         guard let firstFile = files.first else {
-            return "ファイルをDownloadsに保存しました"
+            return String(localized: "msg_extracted_zero")
         }
 
         if files.count == 1 {
-            return "「\(firstFile.lastPathComponent)」をDownloadsに保存しました"
+            return String(localized: "msg_extracted_one \(firstFile.lastPathComponent)")
         }
 
-        return "「\(firstFile.lastPathComponent)」など\(files.count)個のファイルをDownloadsに保存しました"
+        let remainingCount = files.count - 1
+        return String(localized: "msg_extracted_multiple \(firstFile.lastPathComponent) \(remainingCount)")
     }
 }

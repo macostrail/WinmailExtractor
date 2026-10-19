@@ -4,42 +4,44 @@
   <img src="WinmailExtractor/Design/WinmailExtractor-AppIcon-Source.png" width="128" alt="Winmail Extractor icon">
 </p>
 
-`winmail.dat`（Microsoft TNEF形式）から添付ファイルを取り出す、macOS用のネイティブアプリです。
+A native macOS application designed to extract attachments from `winmail.dat` (Microsoft TNEF format) files.
 
-## ダウンロード
+## Download
 
-[GitHub Releases](https://github.com/macostrail/WinmailExtractor/releases/latest) から最新の `WinmailExtractor-*-macOS.zip` をダウンロードし、展開したアプリを「アプリケーション」フォルダへ移動してください。
+Download the latest `WinmailExtractor-*-macOS.zip` from [GitHub Releases](https://github.com). Once downloaded, extract the archive and move the app to your "Applications" folder.
 
-現在の配布版はDeveloper IDによる公証を行っていません。初回起動時にmacOSで確認が表示された場合は、FinderでアプリをControlキーを押しながらクリックして「開く」を選択してください。
+*Note: The current release version is not notarized with an Apple Developer ID. If macOS displays a security warning upon the first launch, right-click (or Control-click) the application in Finder and select "Open".*
 
-配布版はApple SiliconとIntel Macの両方に対応するUniversal Binaryです。
+The distributed version is a Universal Binary that natively supports both Apple Silicon and Intel Macs.
 
-## 特長
+## Features
 
-- Finderで `winmail.dat` を開くだけで、添付ファイルを `~/Downloads` へ自動展開
-- 展開後に保存したファイル名をポップアップで通知
-- 同名ファイルを上書きせず、自動的に連番を付与
-- 日本語ファイル名、Unicode MAPIプロパティ、Windowsコードページに対応
-- アプリ画面からファイル選択、ドラッグ＆ドロップ、保存先指定も可能
+- **Automatic Extraction:** Simply open a `winmail.dat` file in Finder to automatically extract attachments directly to `~/Downloads`.
+- **Completion Notifications:** Displays a system popup notification showing the names of the successfully extracted files.
+- **Conflict Resolution:** Safely appends sequential numbers to filenames if a file with the same name already exists, preventing accidental overwrites.
+- **Robust Encoding Support:** Full support for Japanese filenames, Unicode MAPI properties, and various Windows code pages.
+- **Flexible UI Controls:** Allows manual file selection, drag-and-drop, and custom destination folder selection directly from the main app window.
 
-## 使い方
+## Usage
 
-1. `WinmailExtractor.xcodeproj` をXcodeで開きます。
-2. `WinmailExtractor` スキームを実行、または Archive してアプリを書き出します。
-3. Finderで `winmail.dat` を右クリックし、「このアプリケーションで開く」から Winmail Extractor を選びます。
-4. 以後は `winmail.dat` をダブルクリックするだけで、メイン画面を表示せず `~/Downloads` へ自動展開されます。完了後、保存したファイル名をポップアップでお知らせします。
+1. Open `WinmailExtractor.xcodeproj` using Xcode.
+2. Run the `WinmailExtractor` scheme, or use **Product -> Archive** to export the compiled application.
+3. In Finder, right-click any `winmail.dat` file, select **Open With**, and choose **Winmail Extractor**.
+4. From now on, simply double-clicking a `winmail.dat` file will automatically extract its contents to `~/Downloads` in the background without opening the main window. A popup will notify you of the completed extraction and show the saved filenames.
 
-Winmail Extractorアプリ自体を直接起動した場合は、従来どおりアプリ画面が開きます。画面の「winmail.datを選ぶ」や、Finderからのドラッグ＆ドロップでは保存先を選択できます。同名ファイルがすでにある場合は `ファイル名 (2).ext` のように連番を付け、既存ファイルを上書きしません。
+If you launch the Winmail Extractor application directly, the main graphical interface will open as usual. You can then use the "Select winmail.dat..." button or drag-and-drop files from Finder to choose a custom save destination. If a file with the identical name already exists in the target folder, the app automatically appends a number (e.g., `filename (2).ext`) to preserve your existing files.
 
-毎回このアプリで開く場合は、Finderで `winmail.dat` の「情報を見る」を開き、「このアプリケーションで開く」で Winmail Extractor を選んで「すべてを変更」を押します。
+To set this app as the default handler for all TNEF files, right-click a `winmail.dat` file in Finder, select **Get Info**, choose **Winmail Extractor** under the "Open with" section, and click **Change All...**.
 
-## 動作要件
+## Requirements
 
-- macOS 13 Ventura以降
-- Apple Silicon / Intel Mac
-- 開発時は Xcode 15以降
+- macOS 13 Ventura or later
+- Apple Silicon or Intel Mac
+- For development: Xcode 15 or later
 
-## 開発用コマンド
+## Development Commands
+
+You can run the built-in unit tests via the command line using:
 
 ```sh
 xcodebuild -project WinmailExtractor.xcodeproj \
@@ -48,4 +50,7 @@ xcodebuild -project WinmailExtractor.xcodeproj \
   CODE_SIGNING_ALLOWED=NO test
 ```
 
-TNEFの解析処理は、Microsoftの公式仕様 [MS-OXTNEF](https://learn.microsoft.com/en-us/openspecs/exchange_server_protocols/ms-oxtnef/1f0544d7-30b7-4194-b58f-adc82f3763bb) に基づいています。
+The TNEF parsing logic is strictly based on Microsoft's official [MS-OXTNEF] specification documentation.
+
+[MS-OXTNEF]: https://microsoft.com
+
