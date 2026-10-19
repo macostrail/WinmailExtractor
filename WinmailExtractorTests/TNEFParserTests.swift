@@ -96,16 +96,17 @@ final class TNEFParserTests: XCTestCase {
     func testAutomaticExtractionConfirmationUsesWrittenFileNames() {
         XCTAssertEqual(
             AppDelegate.automaticExtractionMessage(for: [URL(fileURLWithPath: "/tmp/Report.pdf")]),
-            "「Report.pdf」をDownloadsに保存しました"
+            "„Report.pdf“ wurde im Downloads-Ordner gespeichert."
         )
         XCTAssertEqual(
             AppDelegate.automaticExtractionMessage(for: [
                 URL(fileURLWithPath: "/tmp/Report.pdf"),
                 URL(fileURLWithPath: "/tmp/Photo.jpg"),
             ]),
-            "「Report.pdf」など2個のファイルをDownloadsに保存しました"
+            "„Report.pdf“ und 1 weitere Datei(en) wurden im Downloads-Ordner gespeichert."
         )
     }
+
 
     @MainActor
     func testSilentExtractionWritesWithoutReplacingExistingFile() throws {
