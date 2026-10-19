@@ -103,27 +103,39 @@ struct ContentView: View {
 
     private var history: some View {
         VStack(alignment: .leading, spacing: 10) {
-            Text("最近の処理")
+            Text(String(localized: "recent_processing_title"))
                 .font(.headline)
 
-            ForEach(model.records.prefix(3)) { record in
-                HStack(spacing: 10) {
-                    Image(systemName: iconName(for: record.outcome))
-                        .foregroundStyle(iconColor(for: record.outcome))
-                        .frame(width: 18)
-                    Text(record.sourceName)
-                        .lineLimit(1)
-                    Spacer()
-                    Text(summary(for: record.outcome))
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                        .lineLimit(1)
+            VStack(spacing: 10) {
+                ForEach(model.records.prefix(3)) { record in
+                    HStack(spacing: 10) {
+                        Image(systemName: iconName(for: record.outcome))
+                            .foregroundStyle(iconColor(for: record.outcome))
+                            .frame(width: 18)
+                        
+                        Text(record.sourceName)
+                            .lineLimit(1)
+                        
+                        Spacer()
+                        
+                        Text(summary(for: record.outcome))
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                            .lineLimit(1)
+                    }
+                    
+                    if record.id != model.records.prefix(3).last?.id {
+                        Divider()
+                            .opacity(0.3)
+                    }
                 }
             }
         }
         .padding(.horizontal, 32)
         .padding(.vertical, 20)
     }
+
+
 
     private func iconName(for outcome: ExtractionRecord.Outcome) -> String {
         switch outcome {
@@ -144,7 +156,7 @@ struct ContentView: View {
     private func summary(for outcome: ExtractionRecord.Outcome) -> String {
         switch outcome {
         case let .success(count, destination):
-            return "\(count)個 → \(destination.lastPathComponent)"
+            return String(localized: "history_summary_arrow \(count) \(destination.lastPathComponent)")
         case let .failure(message):
             return message
         case .cancelled:
